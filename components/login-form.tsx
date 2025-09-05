@@ -42,7 +42,7 @@ const LoginForm = ({
               <Input
                 id="email"
                 type="email"
-                placeholder="text@example.com"
+                placeholder="test@example.com"
                 required
                 value={email}
                 onChange={(e) => onEmailChange(e.target.value)}
@@ -64,6 +64,7 @@ const LoginForm = ({
                 required
                 value={password}
                 onChange={(e) => onPasswordChange(e.target.value)}
+                placeholder="test123"
               />
             </div>
             <div className="flex flex-col gap-3">
