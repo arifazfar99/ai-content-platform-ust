@@ -49,7 +49,7 @@ const NotificationsAlerts = () => {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-sm font-medium flex items-center gap-2">
-            <Bell className="h-4 w-4 text-muted-foreground" />
+            <Bell className="h-4 w-4 text-amber-500" />
             Scheduled Post Reminders
           </CardTitle>
         </CardHeader>
@@ -58,7 +58,7 @@ const NotificationsAlerts = () => {
             {REMINDERS.map((reminder) => (
               <div
                 key={reminder.id}
-                className="flex items-center justify-between rounded-lg border p-3"
+                className={`flex items-center justify-between rounded-lg border p-3`}
               >
                 <div className="flex items-center gap-3">
                   {reminder.status === "published" ? (

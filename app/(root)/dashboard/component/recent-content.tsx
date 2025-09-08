@@ -15,10 +15,10 @@ const RecentContentSection = () => {
       <h1 className="text-xl font-semibold mb-4">Recent Content</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Image Content */}
-        <Card className="overflow-hidden">
+        <Card className="overflow-hidden border-red-600">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-1">
-              <ImageIcon className="h-4 w-4 text-muted-foreground" /> Image
+              <ImageIcon className="h-4 w-4 text-red-600" /> Image
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -39,10 +39,10 @@ const RecentContentSection = () => {
         </Card>
 
         {/* Video Content */}
-        <Card className="overflow-hidden">
+        <Card className="overflow-hidden border-purple-600">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-1">
-              <Video className="h-4 w-4 text-muted-foreground" /> Video
+              <Video className="h-4 w-4 text-purple-600" /> Video
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -68,11 +68,10 @@ const RecentContentSection = () => {
         </Card>
 
         {/* Text Snippet */}
-        <Card>
+        <Card className="border-amber-600">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-1">
-              <FileText className="h-4 w-4 text-muted-foreground" /> Text
-              Snippet
+              <FileText className="h-4 w-4 text-amber-600" /> Text Snippet
             </CardTitle>
           </CardHeader>
           <CardContent>
