@@ -56,12 +56,12 @@ const AMBIANCE = [
 const GenerateVideoForm = ({ isGenerating, onSubmit }: Props) => {
   const [formData, setFormData] = useState({
     subject: "",
-    action: "",
-    style: "",
-    camera: "",
-    composition: "",
-    focus: "",
-    ambiance: "",
+    action: "Rotating slowly with water droplets",
+    style: "Luxury skincare ad, cinematic lighting",
+    camera: "360-degree rotation shot",
+    composition: "Two-shot with product and model",
+    focus: "Shallow focus highlighting product details",
+    ambiance: "Warm golden hour tones",
   });
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -160,8 +160,12 @@ const GenerateVideoForm = ({ isGenerating, onSubmit }: Props) => {
               key={item}
               type="button"
               onClick={() => handleChange("action", item)}
-              variant={formData.action === item ? "default" : "outline"}
-              className="justify-start"
+              variant={"outline"}
+              className={
+                formData.action === item
+                  ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
+                  : "hover:bg-muted hover:text-foreground"
+              }
             >
               {item}
             </Button>
@@ -178,8 +182,12 @@ const GenerateVideoForm = ({ isGenerating, onSubmit }: Props) => {
               key={item}
               type="button"
               onClick={() => handleChange("style", item)}
-              variant={formData.style === item ? "default" : "outline"}
-              className="justify-start"
+              variant={"outline"}
+              className={
+                formData.style === item
+                  ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
+                  : "hover:bg-muted hover:text-foreground"
+              }
             >
               {item}
             </Button>
@@ -196,8 +204,12 @@ const GenerateVideoForm = ({ isGenerating, onSubmit }: Props) => {
               key={item}
               type="button"
               onClick={() => handleChange("camera", item)}
-              variant={formData.camera === item ? "default" : "outline"}
-              className="justify-start"
+              variant={"outline"}
+              className={
+                formData.camera === item
+                  ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
+                  : "hover:bg-muted hover:text-foreground"
+              }
             >
               {item}
             </Button>
@@ -214,8 +226,12 @@ const GenerateVideoForm = ({ isGenerating, onSubmit }: Props) => {
               key={item}
               type="button"
               onClick={() => handleChange("composition", item)}
-              variant={formData.composition === item ? "default" : "outline"}
-              className="justify-start"
+              variant={"outline"}
+              className={
+                formData.composition === item
+                  ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
+                  : "hover:bg-muted hover:text-foreground"
+              }
             >
               {item}
             </Button>
@@ -232,8 +248,12 @@ const GenerateVideoForm = ({ isGenerating, onSubmit }: Props) => {
               key={item}
               type="button"
               onClick={() => handleChange("focus", item)}
-              variant={formData.focus === item ? "default" : "outline"}
-              className="justify-start"
+              variant={"outline"}
+              className={
+                formData.focus === item
+                  ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
+                  : "hover:bg-muted hover:text-foreground"
+              }
             >
               {item}
             </Button>
@@ -250,8 +270,12 @@ const GenerateVideoForm = ({ isGenerating, onSubmit }: Props) => {
               key={item}
               type="button"
               onClick={() => handleChange("ambiance", item)}
-              variant={formData.ambiance === item ? "default" : "outline"}
-              className="justify-start"
+              variant={"outline"}
+              className={
+                formData.ambiance === item
+                  ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
+                  : "hover:bg-muted hover:text-foreground"
+              }
             >
               {item}
             </Button>
@@ -259,7 +283,7 @@ const GenerateVideoForm = ({ isGenerating, onSubmit }: Props) => {
         </div>
       </div>
 
-      <Button type="submit" disabled={disabledBtn}>
+      <Button type="submit" disabled={disabledBtn} className="bg-blue-700">
         {isGenerating ? (
           <>
             <Loader2 size={18} className="mr-2 animate-spin" />

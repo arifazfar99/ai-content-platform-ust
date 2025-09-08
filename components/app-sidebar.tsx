@@ -103,14 +103,14 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
                       <Link
                         href={item.url}
                         className={cn(
-                          "flex items-center gap-2 rounded-md px-3 py-2 transition-colors",
+                          "flex items-center gap-2 rounded-md px-4 py-6 transition-colors",
                           isActive
                             ? "bg-blue-100 text-blue-700 font-semibold"
                             : "hover:bg-muted hover:text-foreground"
                         )}
                       >
                         <item.icon />
-                        <span>{item.title}</span>
+                        <p className="text-md">{item.title}</p>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -121,7 +121,9 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="bg-white">
-        <Button variant={'outline'} onClick={handleLogout}>Logout</Button>
+        <Button variant={"outline"} onClick={handleLogout}>
+          Logout
+        </Button>
       </SidebarFooter>
     </Sidebar>
   );

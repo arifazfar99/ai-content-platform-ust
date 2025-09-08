@@ -77,7 +77,11 @@ const GenerateImageForm = ({ isGenerating, onSubmit }: Props) => {
             rows={4}
           />
           <div className="absolute right-3 bottom-3">
-            <Button type="submit" disabled={isGenerating || !prompt.trim()}>
+            <Button
+              type="submit"
+              disabled={isGenerating || !prompt.trim()}
+              className="bg-blue-700"
+            >
               {isGenerating ? (
                 <>
                   <Loader2 size={18} className="mr-2 animate-spin" />

@@ -29,8 +29,8 @@ interface Props {
 const GenerateTextForm = ({ onSubmit, isGenerating }: Props) => {
   const [selectedProduct, setSelectedProduct] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const [tone, setTone] = useState("");
-  const [objective, setObjective] = useState("");
+  const [tone, setTone] = useState("Professional");
+  const [objective, setObjective] = useState("Engagement");
   const [targetAudience, setTargetAudience] = useState("");
   const [prompt, setPrompt] = useState("");
 
@@ -99,8 +99,12 @@ const GenerateTextForm = ({ onSubmit, isGenerating }: Props) => {
                 key={obj}
                 type="button"
                 onClick={() => setTone(obj)}
-                variant={tone === obj ? "default" : "outline"}
-                className="justify-start"
+                variant={"outline"}
+                className={
+                  tone === obj
+                    ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
+                    : "hover:bg-muted hover:text-foreground"
+                }
               >
                 {obj === "Professional" && (
                   <Target size={18} className="mr-2" />
@@ -126,8 +130,12 @@ const GenerateTextForm = ({ onSubmit, isGenerating }: Props) => {
               key={obj}
               type="button"
               onClick={() => setObjective(obj)}
-              variant={objective === obj ? "default" : "outline"}
-              className="justify-start"
+              variant={"outline"}
+              className={
+                objective === obj
+                  ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
+                  : "hover:bg-muted hover:text-foreground"
+              }
             >
               {obj === "Awareness" && <Target size={18} className="mr-2" />}
               {obj === "Engagement" && <Users size={18} className="mr-2" />}
@@ -175,6 +183,7 @@ const GenerateTextForm = ({ onSubmit, isGenerating }: Props) => {
                 !targetAudience ||
                 !selectedProduct
               }
+              className="bg-blue-700"
             >
               {isGenerating ? (
                 <>

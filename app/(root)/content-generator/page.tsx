@@ -85,7 +85,7 @@ const ContentGeneratorPage = () => {
     <div className="space-y-9">
       <div className="flex justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Content Generator</h1>
+          <h1 className="text-2xl font-bold">Generate New Content</h1>
           <p className="mt-2">Generate AI-powered content for your products</p>
         </div>
       </div>
@@ -99,7 +99,12 @@ const ContentGeneratorPage = () => {
               <Button
                 type="button"
                 onClick={() => setContentType("text")}
-                variant={contentType === "text" ? "default" : "outline"}
+                variant={"outline"}
+                className={
+                  contentType === "text"
+                    ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
+                    : "hover:bg-muted hover:text-foreground"
+                }
               >
                 <FileText size={18} className="mr-1" />
                 Text
@@ -107,7 +112,12 @@ const ContentGeneratorPage = () => {
               <Button
                 type="button"
                 onClick={() => setContentType("image")}
-                variant={contentType === "image" ? "default" : "outline"}
+                variant={"outline"}
+                className={
+                  contentType === "image"
+                    ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
+                    : "hover:bg-muted hover:text-foreground"
+                }
               >
                 <ImageIcon size={18} className="mr-1" />
                 Image
@@ -115,7 +125,12 @@ const ContentGeneratorPage = () => {
               <Button
                 type="button"
                 onClick={() => setContentType("video")}
-                variant={contentType === "video" ? "default" : "outline"}
+                variant={"outline"}
+                className={
+                  contentType === "video"
+                    ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
+                    : "hover:bg-muted hover:text-foreground"
+                }
               >
                 <Film size={18} className="mr-1" />
                 Video
