@@ -1,58 +1,82 @@
 "use client";
 
+import GenerateImageForm from "@/components/generate-image-form";
+import GenerateTextForm from "@/components/generate-text-form";
+import GenerateVideoForm from "@/components/generate-video-form";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { DUMMY_SKINCARE_PRODUCTS } from "@/lib/products";
-import {
-  FileText,
-  Film,
-  ImageIcon,
-  Info,
-  Lightbulb,
-  Loader2,
-  Sparkles,
-  Target,
-  Users,
-} from "lucide-react";
+import { FileText, Film, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 
 const ContentGeneratorPage = () => {
-  const [selectedProduct, setSelectedProduct] = useState<string>("");
   const [contentType, setContentType] = useState<"text" | "image" | "video">(
     "text"
   );
-  const [objective, setObjective] = useState<string>("");
-  const [targetAudience, setTargetAudience] = useState<string>("");
-  const [prompt, setPrompt] = useState("");
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedContent, setGeneratedContent] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [generatedContent, setGeneratedContent] = useState<any | null>(null);
 
-  const handleGenerate = async () => {
-    setIsGenerating(true);
-    setGeneratedContent(null);
-    // Call your AI generation API here with {selectedProduct, contentType, objective, targetAudience, prompt}
-    setTimeout(() => {
+  const handleGenerate = async (input: any) => {
+    setLoading(true);
+
+    try {
+      console.log("POST /api/generate-text");
       if (contentType === "text") {
-        setGeneratedContent(
-          `✨ Generated ${objective} content for ${targetAudience}: \n\n${prompt}`
-        );
+        const res = await fetch("api/generate-text", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            image: input.image,
+            tone: input.tone,
+            objective: input.objective,
+            targetAudience: input.targetAudience,
+            prompt: input.prompt,
+          }),
+        });
+
+        const data = await res.json();
+        if (data.result) {
+          setGeneratedContent(data);
+          console.log("data", data);
+        }
       } else if (contentType === "image") {
-        setGeneratedContent("/images/skincare/generated-sample.webp"); // fake image path
+        console.log("POST /api/generate-image");
+
+        const res = await fetch("api/generate-image", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            image: input.image,
+            prompt: input.prompt,
+          }),
+        });
+
+        const data = await res.json();
+        if (data) {
+          setGeneratedContent(data);
+          console.log("data", data);
+        }
       } else if (contentType === "video") {
-        setGeneratedContent("/videos/generated-sample.mp4"); // fake video path
+        console.log("POST /api/generate-video");
+
+        const res = await fetch("api/generate-video", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            image: input.image,
+            prompt: input.prompt,
+          }),
+        });
+
+        const data = await res.json();
+        if (data.success && data.video) {
+          console.log("data", data);
+          setGeneratedContent(data);
+        }
       }
-      setIsGenerating(false);
-    }, 3000);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -65,37 +89,17 @@ const ContentGeneratorPage = () => {
       </div>
 
       <div className="bg-card border border-border rounded-lg">
-        <div className="p-6 border-b border-border">
+        <div className="flex items-center justify-between p-6 border-b border-border">
           <h2 className="font-semibold">Generate New Content</h2>
-        </div>
-        <div className="p-6 space-y-6">
-          {/* PRODUCT SELECT */}
-          <div>
-            <Label className="mb-3">Select Product</Label>
-            <Select value={selectedProduct} onValueChange={setSelectedProduct}>
-              <SelectTrigger>
-                <SelectValue placeholder="Choose a product" />
-              </SelectTrigger>
-              <SelectContent>
-                {DUMMY_SKINCARE_PRODUCTS.map((product) => (
-                  <SelectItem key={product.id} value={product.id}>
-                    {product.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* CONTENT TYPE */}
-          <div>
-            <Label className="mb-3">Content Type</Label>
+          <div className="flex items-center">
+            <Label className="mr-3">Content Type: </Label>
             <div className="flex flex-wrap gap-3">
               <Button
                 type="button"
                 onClick={() => setContentType("text")}
                 variant={contentType === "text" ? "default" : "outline"}
               >
-                <FileText size={18} className="mr-2" />
+                <FileText size={18} className="mr-1" />
                 Text
               </Button>
               <Button
@@ -103,7 +107,7 @@ const ContentGeneratorPage = () => {
                 onClick={() => setContentType("image")}
                 variant={contentType === "image" ? "default" : "outline"}
               >
-                <ImageIcon size={18} className="mr-2" />
+                <ImageIcon size={18} className="mr-1" />
                 Image
               </Button>
               <Button
@@ -111,125 +115,33 @@ const ContentGeneratorPage = () => {
                 onClick={() => setContentType("video")}
                 variant={contentType === "video" ? "default" : "outline"}
               >
-                <Film size={18} className="mr-2" />
+                <Film size={18} className="mr-1" />
                 Video
               </Button>
             </div>
           </div>
-
-          {/* CONTENT TONE */}
-          <div>
-            <Label className="mb-3">Content Tone</Label>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {["Professional", "Casual", "Ethusiastic", "Informative"].map(
-                (obj) => (
-                  <Button
-                    key={obj}
-                    type="button"
-                    onClick={() => setObjective(obj)}
-                    variant={objective === obj ? "default" : "outline"}
-                    className="justify-start"
-                  >
-                    {obj === "Professional" && (
-                      <Target size={18} className="mr-2" />
-                    )}
-                    {obj === "Casual" && <Users size={18} className="mr-2" />}
-                    {obj === "Ethusiastic" && (
-                      <FileText size={18} className="mr-2" />
-                    )}
-                    {obj === "Informative" && (
-                      <Info size={18} className="mr-2" />
-                    )}
-                    {obj}
-                  </Button>
-                )
-              )}
-            </div>
-          </div>
-
-          {/* CONTENT OBJECTIVE */}
-          <div>
-            <Label className="mb-3">Content Objective</Label>
-            <div className="grid grid-cols-3 gap-3">
-              {["Awareness", "Engagement", "Conversions"].map((obj) => (
-                <Button
-                  key={obj}
-                  type="button"
-                  onClick={() => setObjective(obj)}
-                  variant={objective === obj ? "default" : "outline"}
-                  className="justify-start"
-                >
-                  {obj === "Awareness" && <Target size={18} className="mr-2" />}
-                  {obj === "Engagement" && <Users size={18} className="mr-2" />}
-                  {obj === "Conversions" && (
-                    <FileText size={18} className="mr-2" />
-                  )}
-                  {obj}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          {/* TARGET AUDIENCE */}
-          <div>
-            <Label className="block text-sm font-medium mb-1">
-              Target Audience
-            </Label>
-            <Input
-              type="text"
-              value={targetAudience}
-              onChange={(e) => setTargetAudience(e.target.value)}
-              className="w-full p-3 border border-input rounded-md bg-background"
-              placeholder="e.g. Young adults interested in skincare"
+        </div>
+        <div className="p-6 space-y-6">
+          {contentType === "text" && (
+            <GenerateTextForm
+              isGenerating={loading}
+              onSubmit={(data) => handleGenerate(data)}
             />
-          </div>
+          )}
 
-          <div>
-            <Label className="block text-sm font-medium mb-1" htmlFor="prompt">
-              Prompt / Brief
-            </Label>
-            <div className="relative">
-              <Textarea
-                id="prompt"
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                placeholder={`Describe what ${contentType} content you want to generate...`}
-                rows={4}
-              />
-              <div className="absolute right-3 bottom-3">
-                <Button
-                  type="button"
-                  onClick={handleGenerate}
-                  disabled={
-                    isGenerating ||
-                    !prompt.trim() ||
-                    !selectedProduct ||
-                    !objective
-                  }
-                >
-                  {isGenerating ? (
-                    <>
-                      <Loader2 size={18} className="mr-2 animate-spin" />
-                      Generating...
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles size={18} className="mr-2" />
-                      Generate
-                    </>
-                  )}
-                </Button>
-              </div>
-            </div>
-            <div className="flex items-center mt-2 space-x-2">
-              <Lightbulb size={15}/>
-              <p className="text-xs">
-                The more specific your instructions, the better the results.
-                Include key selling points, target audience details, specific
-                features to highlight, or any campaign-specific messaging.
-              </p>
-            </div>
-          </div>
+          {contentType === "image" && (
+            <GenerateImageForm
+              isGenerating={loading}
+              onSubmit={(data) => handleGenerate(data)}
+            />
+          )}
+
+          {contentType === "video" && (
+            <GenerateVideoForm
+              isGenerating={loading}
+              onSubmit={(data) => handleGenerate(data)}
+            />
+          )}
         </div>
       </div>
 
@@ -239,24 +151,31 @@ const ContentGeneratorPage = () => {
           <h2 className="text-lg font-semibold mb-4">
             Generated Content Preview
           </h2>
-          {contentType === "text" && (
+          {generatedContent.result && (
             <pre className="whitespace-pre-wrap text-sm">
-              {generatedContent}
+              {generatedContent.result}
             </pre>
           )}
-          {contentType === "image" && (
-            <Image
-              src={generatedContent}
-              alt="Generated"
-              className="rounded-md border w-full max-w-md"
-              width={200}
-              height={0}
-              unoptimized
-            />
+
+          {generatedContent.images.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {generatedContent.images.map((src: string, idx: number) => (
+                <Image
+                  key={idx}
+                  src={src}
+                  alt={`Generated ${idx + 1}`}
+                  className="rounded-md border w-full max-w-md"
+                  width={200}
+                  height={0}
+                  unoptimized
+                />
+              ))}
+            </div>
           )}
-          {contentType === "video" && (
+
+          {generatedContent.video && (
             <video
-              src={generatedContent}
+              src={generatedContent.video}
               controls
               className="rounded-md border w-full max-w-md"
             />

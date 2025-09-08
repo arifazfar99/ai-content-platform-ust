@@ -6,6 +6,7 @@ interface Props {
   title: string;
   value: string | number;
   icon: ReactNode;
+  iconBg: string;
   trendValue: string | number;
   trendDirection: "up" | "down";
 }
@@ -14,6 +15,7 @@ const StatCard = ({
   title,
   value,
   icon,
+  iconBg,
   trendValue,
   trendDirection,
 }: Props) => {
@@ -28,7 +30,9 @@ const StatCard = ({
             <p className="text-sm">{title}</p>
             <h3 className="text-2xl font-bold mt-1">{value}</h3>
           </div>
-          <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+          <div
+            className={`w-10 h-10 ${iconBg} rounded-full flex items-center justify-center`}
+          >
             {icon}
           </div>
         </div>

@@ -11,12 +11,12 @@ const DashboardPage = () => {
 
   return (
     <div className="space-y-9">
-      <div>
+      {/* <div>
         <h1 className="text-2xl font-bold">
           Welcome back, {session?.user?.name}
         </h1>
         <p className="mt-2">AI-Powered Content Platform</p>
-      </div>
+      </div> */}
       <StatsSection />
       <ContentOverviewSection />
       <RecentContentSection />

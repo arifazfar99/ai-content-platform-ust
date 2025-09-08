@@ -26,6 +26,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { signOut } from "next-auth/react";
+import { cn } from "@/lib/utils";
+import { Separator } from "./ui/separator";
 
 const items = [
   {
@@ -68,8 +70,8 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
   };
 
   return (
-    <Sidebar variant="inset" {...props}>
-      <SidebarHeader>
+    <Sidebar {...props}>
+      <SidebarHeader className="bg-white">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size={"lg"} asChild>
@@ -86,7 +88,8 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <Separator />
+      <SidebarContent className="bg-white">
         <SidebarGroup>
           <SidebarGroupLabel>Main</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -96,8 +99,16 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
 
                 return (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild isActive={isActive}>
-                      <Link href={item.url}>
+                    <SidebarMenuButton asChild>
+                      <Link
+                        href={item.url}
+                        className={cn(
+                          "flex items-center gap-2 rounded-md px-3 py-2 transition-colors",
+                          isActive
+                            ? "bg-blue-100 text-blue-700 font-semibold"
+                            : "hover:bg-muted hover:text-foreground"
+                        )}
+                      >
                         <item.icon />
                         <span>{item.title}</span>
                       </Link>
@@ -109,8 +120,8 @@ const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <Button onClick={handleLogout}>Logout</Button>
+      <SidebarFooter className="bg-white">
+        <Button variant={'outline'} onClick={handleLogout}>Logout</Button>
       </SidebarFooter>
     </Sidebar>
   );
