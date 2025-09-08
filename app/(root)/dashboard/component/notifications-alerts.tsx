@@ -58,7 +58,11 @@ const NotificationsAlerts = () => {
             {REMINDERS.map((reminder) => (
               <div
                 key={reminder.id}
-                className={`flex items-center justify-between rounded-lg border p-3`}
+                className={`flex items-center justify-between rounded-lg border p-3 ${
+                  reminder.status === "published"
+                    ? "border-green-500"
+                    : "border-blue-500"
+                }`}
               >
                 <div className="flex items-center gap-3">
                   {reminder.status === "published" ? (

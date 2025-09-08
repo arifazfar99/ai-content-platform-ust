@@ -92,7 +92,7 @@ const ContentGeneratorPage = () => {
 
       <div className="bg-card border border-border rounded-lg">
         <div className="flex items-center justify-between p-6 border-b border-border">
-          <h2 className="font-semibold">Generate New Content</h2>
+          {/* <h2 className="font-semibold">Generate New Content</h2> */}
           <div className="flex items-center">
             <Label className="mr-3">Content Type: </Label>
             <div className="flex flex-wrap gap-3">

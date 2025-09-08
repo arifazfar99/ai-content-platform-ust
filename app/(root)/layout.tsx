@@ -25,7 +25,7 @@ export default function RootLayout({
           </div>
         </header>
         <Separator />
-        <main className="flex flex-1 flex-col gap-4 p-4">{children}</main>
+        <main className="flex flex-1 flex-col gap-4 p-6 bg-muted">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );

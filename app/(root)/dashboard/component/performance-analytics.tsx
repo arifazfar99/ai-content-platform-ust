@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Star, TrendingUp } from "lucide-react";
+import { BarChart3, Star, TrendingUp } from "lucide-react";
 import React from "react";
 import {
   Cell,
@@ -45,8 +45,9 @@ const PerformanceAnalytics = () => {
         {/* Engagement per platform */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-sm font-medium">
-              Engagement per Platform
+            <CardTitle className="text-sm font-medium flex items-center gap-1">
+              <BarChart3 className="h-4 w-4 text-purple-500" /> Engagement per
+              Platform
             </CardTitle>
           </CardHeader>
           <CardContent>
