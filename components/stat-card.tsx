@@ -7,6 +7,8 @@ interface Props {
   value: string | number;
   icon: ReactNode;
   iconBg: string;
+  bgColor: string;
+  borderColor: string;
   trendValue: string | number;
   trendDirection: "up" | "down";
 }
@@ -16,6 +18,8 @@ const StatCard = ({
   value,
   icon,
   iconBg,
+  bgColor,
+  borderColor,
   trendValue,
   trendDirection,
 }: Props) => {
@@ -23,7 +27,7 @@ const StatCard = ({
   const trendColor = isUp ? "text-green-500" : "text-red-500";
 
   return (
-    <Card>
+    <Card className={`${bgColor} ${borderColor}`}>
       <CardContent>
         <div className="flex items-center justify-between">
           <div>

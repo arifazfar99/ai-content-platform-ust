@@ -1,25 +1,20 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import React from "react";
 import StatsSection from "./component/stats-section";
-import ContentOverviewSection from "./component/content-overview-section";
 import RecentContentSection from "./component/recent-content";
+import PerformanceAnalytics from "./component/performance-analytics";
+import NotificationsAlerts from "./component/notifications-alerts";
 
 const DashboardPage = () => {
-  const { data: session } = useSession();
-
   return (
     <div className="space-y-9">
-      {/* <div>
-        <h1 className="text-2xl font-bold">
-          Welcome back, {session?.user?.name}
-        </h1>
-        <p className="mt-2">AI-Powered Content Platform</p>
-      </div> */}
-      <StatsSection />
-      <ContentOverviewSection />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <StatsSection />
+        <NotificationsAlerts />
+      </div>
       <RecentContentSection />
+      <PerformanceAnalytics />
     </div>
   );
 };
