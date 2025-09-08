@@ -13,7 +13,7 @@ interface Props {
 }
 
 const GenerateImageForm = ({ isGenerating, onSubmit }: Props) => {
-  const [image, setImage] = useState<any>(null);
+  const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [prompt, setPrompt] = useState("");
 
@@ -27,7 +27,7 @@ const GenerateImageForm = ({ isGenerating, onSubmit }: Props) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!prompt.trim()) return;
+    if (!prompt.trim() || !image) return;
 
     const res = await blobToBase64(image);
     const imageBase64 = res.split(",")[1];
