@@ -14,8 +14,10 @@ const ContentGeneratorPage = () => {
     "text"
   );
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [generatedContent, setGeneratedContent] = useState<any | null>(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleGenerate = async (input: any) => {
     setLoading(true);
 
