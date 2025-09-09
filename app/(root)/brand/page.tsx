@@ -1,42 +1,16 @@
 "use client";
 
+import { SocialMediaProfiles } from "@/components/social-media-profiles";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { DUMMY_SKINCARE_BRAND } from "@/lib/brands";
-import {
-  Facebook,
-  Instagram,
-  Linkedin,
-  Music2,
-  Twitter,
-  Youtube,
-} from "lucide-react";
+import { DUMMY_SKINCARE_BRANDS } from "@/lib/brands";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const getSocialIcon = (platform: string) => {
-  switch (platform.toLowerCase()) {
-    case "facebook":
-      return <Facebook size={18} className="text-blue-600" />;
-    case "instagram":
-      return <Instagram size={18} className="text-pink-500" />;
-    case "twitter":
-      return <Twitter size={18} className="text-sky-500" />;
-    case "youtube":
-      return <Youtube size={18} className="text-red-500" />;
-    case "linkedin":
-      return <Linkedin size={18} className="text-blue-700" />;
-    case "tiktok":
-      return <Music2 size={18} className="text-black" />;
-    default:
-      return null;
-  }
-};
-
 const BrandPage = () => {
-  const brand = DUMMY_SKINCARE_BRAND[0];
+  const brand = DUMMY_SKINCARE_BRANDS[0];
 
   return (
     <div className="space-y-9">
@@ -64,12 +38,12 @@ const BrandPage = () => {
               <p className="text-muted-foreground">{brand.category}</p>
             </div>
           </div>
-          <div className="flex gap-2">
+          {/* <div className="flex gap-2">
             <Link href={"/brand/edit"}>
               <Button variant={"outline"}>Edit</Button>
             </Link>
             <Button variant={"destructive"}>Delete</Button>
-          </div>
+          </div> */}
         </div>
 
         <Separator />
@@ -92,12 +66,12 @@ const BrandPage = () => {
 
             <div>
               <p className="text-sm text-muted-foreground">Email</p>
-              <p>{brand.email}</p>
+              <p>{brand.businessEmail}</p>
             </div>
 
             <div>
               <p className="text-sm text-muted-foreground">Phone</p>
-              <p>{brand.phone}</p>
+              <p>{brand.phoneNumber}</p>
             </div>
           </div>
         </div>
@@ -110,11 +84,11 @@ const BrandPage = () => {
               <h1 className="text-sm font-semibold">Typography</h1>
               <div>
                 <p className="text-sm text-muted-foreground">Primary Font</p>
-                <p>{brand.fonts.primary}</p>
+                <p>{brand.primaryFont}</p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Secondary Font</p>
-                <p>{brand.fonts.secondary}</p>
+                <p>{brand.secondaryFont}</p>
               </div>
             </div>
             <div className="bg-muted border p-4 rounded-md space-y-3">
@@ -124,9 +98,9 @@ const BrandPage = () => {
                 <div className="flex items-center gap-2">
                   <div
                     className="w-6 h-6 rounded-md border"
-                    style={{ backgroundColor: brand.colors.primary }}
+                    style={{ backgroundColor: brand.primaryColor }}
                   />
-                  <p>{brand.colors.primary}</p>
+                  <p>{brand.primaryColor}</p>
                 </div>
               </div>
               <div>
@@ -134,9 +108,9 @@ const BrandPage = () => {
                 <div className="flex items-center gap-2">
                   <div
                     className="w-6 h-6 rounded-md border"
-                    style={{ backgroundColor: brand.colors.secondary }}
+                    style={{ backgroundColor: brand.secondaryColor }}
                   />
-                  <p>{brand.colors.secondary}</p>
+                  <p>{brand.secondaryColor}</p>
                 </div>
               </div>
             </div>
@@ -144,27 +118,12 @@ const BrandPage = () => {
         </div>
 
         {/* SOCIAL MEDIA PROFILES */}
-        <div className="space-y-2 px-6 py-6">
-          <h1 className="text-md font-semibold">Social Media Profiles</h1>
-          <div className="bg-muted border p-4 rounded-md space-y-3">
-            <div className="grid grid-cols-4">
-              {Object.entries(brand.socialMediaChannels).map(
-                ([platform, url]) => (
-                  <a
-                    key={platform}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-blue-600 hover:underline"
-                  >
-                    {getSocialIcon(platform)}
-                    <span className="capitalize">{platform}</span>
-                  </a>
-                )
-              )}
-            </div>
-          </div>
-        </div>
+        <SocialMediaProfiles
+          instagram={brand.instagram}
+          twitter={brand.twitter}
+          facebook={brand.facebook}
+          tiktok={brand.tiktok}
+        />
       </Card>
     </div>
   );

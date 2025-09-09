@@ -18,7 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { X } from "lucide-react";
-import { Brand } from "@/types/brand";
+import { Brand } from "@/lib/brands";
 
 const STEPS = [
   { value: "step1", label: "Basic Info" },
