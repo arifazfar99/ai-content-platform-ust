@@ -99,12 +99,7 @@ const GenerateTextForm = ({ onSubmit, isGenerating }: Props) => {
                 key={obj}
                 type="button"
                 onClick={() => setTone(obj)}
-                variant={"outline"}
-                className={
-                  tone === obj
-                    ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
-                    : "hover:bg-muted hover:text-foreground"
-                }
+                variant={tone === obj ? "default" : "outline"}
               >
                 {obj === "Professional" && (
                   <Target size={18} className="mr-2" />
@@ -130,12 +125,7 @@ const GenerateTextForm = ({ onSubmit, isGenerating }: Props) => {
               key={obj}
               type="button"
               onClick={() => setObjective(obj)}
-              variant={"outline"}
-              className={
-                objective === obj
-                  ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
-                  : "hover:bg-muted hover:text-foreground"
-              }
+              variant={objective === obj ? "default" : "outline"}
             >
               {obj === "Awareness" && <Target size={18} className="mr-2" />}
               {obj === "Engagement" && <Users size={18} className="mr-2" />}
@@ -175,6 +165,7 @@ const GenerateTextForm = ({ onSubmit, isGenerating }: Props) => {
           <div className="absolute right-3 bottom-3">
             <Button
               type="submit"
+              variant={"default"}
               disabled={
                 isGenerating ||
                 !prompt.trim() ||
@@ -183,7 +174,6 @@ const GenerateTextForm = ({ onSubmit, isGenerating }: Props) => {
                 !targetAudience ||
                 !selectedProduct
               }
-              className="bg-blue-700"
             >
               {isGenerating ? (
                 <>

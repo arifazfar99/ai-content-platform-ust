@@ -99,12 +99,7 @@ const ContentGeneratorPage = () => {
               <Button
                 type="button"
                 onClick={() => setContentType("text")}
-                variant={"outline"}
-                className={
-                  contentType === "text"
-                    ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
-                    : "hover:bg-muted hover:text-foreground"
-                }
+                variant={contentType === "text" ? "default" : "outline"}
               >
                 <FileText size={18} className="mr-1" />
                 Text
@@ -112,12 +107,7 @@ const ContentGeneratorPage = () => {
               <Button
                 type="button"
                 onClick={() => setContentType("image")}
-                variant={"outline"}
-                className={
-                  contentType === "image"
-                    ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
-                    : "hover:bg-muted hover:text-foreground"
-                }
+                variant={contentType === "image" ? "default" : "outline"}
               >
                 <ImageIcon size={18} className="mr-1" />
                 Image
@@ -125,12 +115,7 @@ const ContentGeneratorPage = () => {
               <Button
                 type="button"
                 onClick={() => setContentType("video")}
-                variant={"outline"}
-                className={
-                  contentType === "video"
-                    ? "bg-blue-100 text-blue-700 font-semibold border-blue-700"
-                    : "hover:bg-muted hover:text-foreground"
-                }
+                variant={contentType === "video" ? "default" : "outline"}
               >
                 <Film size={18} className="mr-1" />
                 Video

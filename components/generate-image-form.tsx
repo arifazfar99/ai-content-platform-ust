@@ -80,7 +80,7 @@ const GenerateImageForm = ({ isGenerating, onSubmit }: Props) => {
             <Button
               type="submit"
               disabled={isGenerating || !prompt.trim()}
-              className="bg-blue-700"
+              variant={"default"}
             >
               {isGenerating ? (
                 <>

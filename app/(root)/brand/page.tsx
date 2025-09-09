@@ -2,12 +2,13 @@
 
 import BrandDetail from "@/components/brand-detail";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { DUMMY_SKINCARE_BRAND } from "@/lib/brands";
 import Link from "next/link";
 import React from "react";
 
 const BrandPage = () => {
-  const brands = DUMMY_SKINCARE_BRAND;
+  const brands = [];
 
   return (
     <div className="space-y-9">
@@ -22,14 +23,16 @@ const BrandPage = () => {
           ))}
         </>
       ) : (
-        <div className="flex flex-col items-center justify-center py-12 border rounded-md text-center text-muted-foreground">
+        <Card className="flex flex-col items-center justify-center py-12 border rounded-md text-center text-muted-foreground">
           <p className="mb-4">
-            No brands found. Please set up your first brand.
+            No brand found. Please set up your first brand.
           </p>
           <Link href={"/brand/brand-setup"}>
-            <Button>Setup a Brand</Button>
+            <Button className="bg-blue-700 hover:bg-blue-800">
+              Setup a Brand
+            </Button>
           </Link>
-        </div>
+        </Card>
       )}
     </div>
   );
