@@ -6,11 +6,39 @@ const ai = new GoogleGenAI({ apiKey: process.env.GENAI_API_KEY! })
 
 export async function POST (req: NextRequest) {
     try {
-        const { prompt, image} = await req.json()
+        const { prompt, image, brand } = await req.json()
 
         if (!prompt) {
             return NextResponse.json({ error: 'Prompt is required.'}, { status: 400 })
         }
+
+        const systemPrompt = `
+            You are a creative assistant responsible for generating branded visuals.
+            Always follow the brand guidelines below with precision.
+
+            [ BRAND IDENTITY ]
+            - Brand Name: ${brand.name}
+            - Category: ${brand.category}
+
+            [ BRAND STYLE ]
+            - Primary Color: ${brand.primaryColor}
+            - Secondary Color: ${brand.secondaryColor}
+            - Primary Font: ${brand.primaryFont}
+            - Secondary Font: ${brand.secondaryFont}
+            - General Look & Feel: Clean, modern, and consistent with the skincare industry.
+
+            [ LOGO USAGE ]
+            - Use this logo: ${brand.logo}
+            - Placement: Bottom-right corner, sized proportionally (like a watermark).
+            - Ensure logo is clear, unobstructed, and maintains its aspect ratio.
+
+            [ OUTPUT REQUIREMENTS ]
+            - Generated visuals MUST respect the brand's fonts, colors, and design principles.
+            - Ensure consistency across images so they look like part of the same brand kit.
+            - If unclear, prioritize elegance, minimalism, and skincare aesthetics.
+
+            Now , Based on these settings, answer the user's prompt accordingly.
+        `
 
         const contents: any[] = [{ text: prompt }]
 
@@ -27,7 +55,8 @@ export async function POST (req: NextRequest) {
             model: 'gemini-2.5-flash-image-preview',
             contents,
             config: {
-                candidateCount: 3
+                candidateCount: 3,
+                systemInstruction: systemPrompt
             }
         })
 

@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
             image: {
                 imageBytes: imageBase64,
                 mimeType: 'image/png' 
-            }
+            },
         })
 
         while (!operation.done) {

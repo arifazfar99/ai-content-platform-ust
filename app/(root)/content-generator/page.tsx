@@ -5,6 +5,7 @@ import GenerateTextForm from "@/components/generate-text-form";
 import GenerateVideoForm from "@/components/generate-video-form";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { DUMMY_SKINCARE_BRANDS } from "@/lib/brands";
 import { FileText, Film, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -50,6 +51,7 @@ const ContentGeneratorPage = () => {
           body: JSON.stringify({
             image: input.image,
             prompt: input.prompt,
+            brand: DUMMY_SKINCARE_BRANDS[0]
           }),
         });
 
