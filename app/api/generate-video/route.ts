@@ -19,6 +19,11 @@ export async function POST(req: NextRequest) {
                 imageBytes: imageBase64,
                 mimeType: 'image/png' 
             },
+            config: {
+                numberOfVideos: 3,
+                aspectRatio: '16:9',
+                durationSeconds: 8,
+            }
         })
 
         while (!operation.done) {
@@ -27,7 +32,7 @@ export async function POST(req: NextRequest) {
             operation = await ai.operations.getVideosOperation({ operation: operation })
         }
 
-        return NextResponse.json({ success: true, video: operation.response?.generatedVideos?.[0].video });
+        return NextResponse.json({ success: true, video: operation.response?.generatedVideos });
     } catch (err: any) {
         console.error("Video generation error:", err);
         return NextResponse.json({ error: err.message || "Failed to generate video" }, { status: 500 });
