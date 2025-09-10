@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -27,47 +28,51 @@ const MyProductsPage = () => {
         </div>
       </div>
 
-      <div className="border rounded-lg overflow-hidden">
-        <Table>
-          <TableHeader className="bg-muted">
-            <TableRow>
-              <TableHead>Image</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead>Price</TableHead>
-              <TableHead>Action</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {DUMMY_SKINCARE_PRODUCTS.map((product) => {
-              return (
-                <TableRow key={product.id}>
-                  <TableCell>
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      width={60}
-                      height={60}
-                      className="rounded-md object-cover"
-                      unoptimized
-                    />
-                  </TableCell>
-                  <TableCell className="font-medium">{product.name}</TableCell>
-                  <TableCell className="max-w-sm truncate">
-                    {product.description}
-                  </TableCell>
-                  <TableCell>RM {product.price.toFixed(2)}</TableCell>
-                  <TableCell>
-                    <Link href={`/products/${product.id}`}>
-                      <ChevronRight />
-                    </Link>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </div>
+      <Card className="px-6">
+        <div className="border rounded-lg overflow-hidden">
+          <Table>
+            <TableHeader className="bg-muted">
+              <TableRow>
+                <TableHead>Image</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Description</TableHead>
+                <TableHead>Price</TableHead>
+                <TableHead>Action</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {DUMMY_SKINCARE_PRODUCTS.map((product) => {
+                return (
+                  <TableRow key={product.id}>
+                    <TableCell>
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        width={60}
+                        height={60}
+                        className="rounded-md object-cover"
+                        unoptimized
+                      />
+                    </TableCell>
+                    <TableCell className="font-medium">
+                      {product.name}
+                    </TableCell>
+                    <TableCell className="max-w-sm truncate">
+                      {product.description}
+                    </TableCell>
+                    <TableCell>RM {product.price.toFixed(2)}</TableCell>
+                    <TableCell>
+                      <Link href={`/products/${product.id}`}>
+                        <ChevronRight />
+                      </Link>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </div>
+      </Card>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import ContentDialog from "@/components/content-dialog";
+import { Card } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -97,52 +98,56 @@ const ContentsPage = () => {
         </div>
       </div>
 
-      <div className="border rounded-lg overflow-hidden">
-        <Table>
-          <TableHeader className="bg-muted">
-            <TableRow>
-              <TableHead>Product</TableHead>
-              <TableHead>Content Type</TableHead>
-              <TableHead>Preview</TableHead>
-              <TableHead>Created At</TableHead>
-              <TableHead>Action</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredContents.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell>{getProductName(item.productId)}</TableCell>
-                <TableCell className="capitalize">{item.contentType}</TableCell>
-                <TableCell>
-                  {renderContentPreview(item.content, item.contentType)}
-                </TableCell>
-                <TableCell>
-                  {new Date(item.createdAt).toLocaleString("en-MY", {
-                    dateStyle: "medium",
-                    timeStyle: "short",
-                  })}
-                </TableCell>
-                <TableCell>
-                  <Link href={`/contents/${item.id}`}>
-                    <SquarePen />
-                  </Link>
-                </TableCell>
-              </TableRow>
-            ))}
-
-            {filteredContents.length === 0 && (
+      <Card className="px-6">
+        <div className="border rounded-lg overflow-hidden">
+          <Table>
+            <TableHeader className="bg-muted">
               <TableRow>
-                <TableCell
-                  colSpan={4}
-                  className="text-center text-muted-foreground py-6"
-                >
-                  No generated content found for this filter.
-                </TableCell>
+                <TableHead>Product</TableHead>
+                <TableHead>Content Type</TableHead>
+                <TableHead>Preview</TableHead>
+                <TableHead>Created At</TableHead>
+                <TableHead>Action</TableHead>
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+            </TableHeader>
+            <TableBody>
+              {filteredContents.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>{getProductName(item.productId)}</TableCell>
+                  <TableCell className="capitalize">
+                    {item.contentType}
+                  </TableCell>
+                  <TableCell>
+                    {renderContentPreview(item.content, item.contentType)}
+                  </TableCell>
+                  <TableCell>
+                    {new Date(item.createdAt).toLocaleString("en-MY", {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                    })}
+                  </TableCell>
+                  <TableCell>
+                    <Link href={`/contents/${item.id}`}>
+                      <SquarePen />
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              ))}
+
+              {filteredContents.length === 0 && (
+                <TableRow>
+                  <TableCell
+                    colSpan={4}
+                    className="text-center text-muted-foreground py-6"
+                  >
+                    No generated content found for this filter.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </Card>
     </div>
   );
 };

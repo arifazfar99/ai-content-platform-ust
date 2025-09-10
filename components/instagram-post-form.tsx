@@ -78,6 +78,10 @@ const InstagramPostForm = () => {
           </div>
         </div>
       </div>
+      <div className="flex justify-end gap-2">
+        <Button variant={"secondary"}>Save Draft</Button>
+        <Button>Schedule</Button>
+      </div>
     </div>
   );
 };

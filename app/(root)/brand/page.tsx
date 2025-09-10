@@ -2,9 +2,10 @@
 
 import { SocialMediaProfiles } from "@/components/social-media-profiles";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { DUMMY_SKINCARE_BRANDS } from "@/lib/brands";
+import { Briefcase, Palette } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -30,7 +31,7 @@ const BrandPage = () => {
               alt={brand.name}
               width={64}
               height={64}
-              className="w-16 h-16 object-contain"
+              className="w-24 h-24 rounded-full object-contain"
               unoptimized
             />
             <div>
@@ -38,19 +39,16 @@ const BrandPage = () => {
               <p className="text-muted-foreground">{brand.category}</p>
             </div>
           </div>
-          {/* <div className="flex gap-2">
-            <Link href={"/brand/edit"}>
-              <Button variant={"outline"}>Edit</Button>
-            </Link>
-            <Button variant={"destructive"}>Delete</Button>
-          </div> */}
         </div>
 
         <Separator />
 
         {/* BASIC INFORMATION */}
         <div className="space-y-2 px-6 pt-6">
-          <h1 className="text-md font-semibold">Basic Information</h1>
+          <h1 className="flex items-center gap-2 text-md font-semibold">
+            <Briefcase />
+            Basic Information
+          </h1>
           <div className="bg-muted border p-4 rounded-md space-y-3">
             <div>
               <p className="text-sm text-muted-foreground">Website</p>
@@ -78,7 +76,10 @@ const BrandPage = () => {
 
         {/* BRAND IDENTITY*/}
         <div className="space-y-2 px-6 pt-6">
-          <h1 className="text-md font-semibold">Brand Identity</h1>
+          <h1 className="flex items-center gap-2 text-md font-semibold">
+            <Palette />
+            Brand Identity
+          </h1>
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-muted border p-4 rounded-md space-y-3">
               <h1 className="text-sm font-semibold">Typography</h1>

@@ -1,4 +1,4 @@
-import { Instagram, Twitter, Facebook, Music2 } from "lucide-react";
+import { Instagram, Twitter, Facebook, Music2, Share2 } from "lucide-react";
 
 interface SocialProps {
   instagram?: string;
@@ -26,7 +26,9 @@ export function SocialMediaProfiles({
 
   return (
     <div className="space-y-2 px-6 py-6">
-      <h1 className="text-md font-semibold">Social Media Profiles</h1>
+      <h1 className="flex items-center gap-2 text-md font-semibold">
+        <Share2 /> Social Media Profiles
+      </h1>
       <div className="bg-muted border p-4 rounded-md space-y-3">
         <div className="grid grid-cols-4 gap-4">
           {socials.map(

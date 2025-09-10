@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -42,70 +43,74 @@ const NewProductPage = () => {
         <h1 className="text-2xl font-bold">Products</h1>
       </div>
 
-      <div className="border rounded-md">
-        <div className="flex justify-between p-6">
-          <h1 className="text-xl font-semibold">Add New Product</h1>
-          <div className="flex gap-2">
-            <Button variant={"default"} onClick={handleSave}>
-              Add
-            </Button>
-            <Button variant={"outline"} onClick={handleCancel}>
-              Cancel
-            </Button>
-          </div>
-        </div>
-
-        <Separator />
-
-        <div className="space-y-4 px-6 py-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="name">Product Name</Label>
-                <Input
-                  id="name"
-                  value={form.name}
-                  onChange={(e) => handleChange("name", e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  value={form.description}
-                  onChange={(e) => handleChange("description", e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="price">Price</Label>
-                <Input
-                  id="price"
-                  type="number"
-                  value={form.price}
-                  onChange={(e) =>
-                    handleChange("price", parseFloat(e.target.value))
-                  }
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="image">Product Image URL</Label>
-                <Input
-                  id="image"
-                  type="url"
-                  value={form.image}
-                  onChange={(e) => handleChange("image", e.target.value)}
-                />
-              </div>
+      <Card>
+        <CardContent className="space-y-6">
+          <div className="flex justify-between items-center">
+            <h1 className="text-xl font-semibold">Add New Product</h1>
+            <div className="flex gap-2">
+              <Button variant={"default"} onClick={handleSave}>
+                Add
+              </Button>
+              <Button variant={"outline"} onClick={handleCancel}>
+                Cancel
+              </Button>
             </div>
-          </form>
-        </div>
-      </div>
+          </div>
+
+          <Separator />
+
+          <div className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Product Name</Label>
+                  <Input
+                    id="name"
+                    value={form.name}
+                    onChange={(e) => handleChange("name", e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea
+                    id="description"
+                    value={form.description}
+                    onChange={(e) =>
+                      handleChange("description", e.target.value)
+                    }
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="price">Price</Label>
+                  <Input
+                    id="price"
+                    type="number"
+                    value={form.price}
+                    onChange={(e) =>
+                      handleChange("price", parseFloat(e.target.value))
+                    }
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="image">Product Image URL</Label>
+                  <Input
+                    id="image"
+                    type="url"
+                    value={form.image}
+                    onChange={(e) => handleChange("image", e.target.value)}
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
