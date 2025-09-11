@@ -20,21 +20,17 @@ export async function POST (req: NextRequest) {
             1. The first image is a **reference photo** provided by the user. 
                 Use it as a base style/subject inspiration.
             2. The second image is the **brand logo**. 
-                Always include this logo at the bottom-right corner as a watermark
-
-            [ BRAND IDENTITY ]
-            - Brand Name: ${brand.name}
-            - Category: ${brand.category}
+                Always include this logo as a watermark
 
             [ BRAND STYLE ]
-            - Primary Color: ${brand.primaryColor}
-            - Secondary Color: ${brand.secondaryColor}
-            - Primary Font: ${brand.primaryFont}
-            - Secondary Font: ${brand.secondaryFont}
+            - Primary Color: ${brand.colors.primary}
+            - Secondary Color: ${brand.colors.secondary}
+            - Primary Font: ${brand.fonts.primary}
+            - Secondary Font: ${brand.fonts.secondary}
             - General Look & Feel: Clean, modern, and consistent with the skincare industry.
 
             [ BRAND LOGO USAGE ]
-            - Placement: Bottom-right corner, sized proportionally (like a watermark).
+            - Placement: ${brand.logoPlacement}, sized proportionally (like a watermark).
             - Ensure logo is clear, unobstructed, and maintains its aspect ratio.
 
             [ OUTPUT REQUIREMENTS ]

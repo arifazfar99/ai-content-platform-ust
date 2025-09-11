@@ -46,15 +46,15 @@ const ContentsPage = () => {
         <Image
           src={content}
           alt="Generated"
-          width={80}
-          height={80}
+          width={120}
+          height={120}
           className="rounded-md object-cover"
         />
       );
     }
     if (type === "video") {
       return (
-        <video width={120} height={80} controls className="rounded-md">
+        <video width={180} height={120} controls className="rounded-md">
           <source src={content} type="video/mp4" />
           Your browser does not support video playback.
         </video>
@@ -128,7 +128,7 @@ const ContentsPage = () => {
                   </TableCell>
                   <TableCell>
                     <Link href={`/contents/${item.id}`}>
-                      <SquarePen />
+                      <SquarePen className="text-blue-700"/>
                     </Link>
                   </TableCell>
                 </TableRow>

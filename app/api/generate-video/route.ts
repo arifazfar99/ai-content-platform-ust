@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
             operation = await ai.operations.getVideosOperation({ operation: operation })
         }
 
-        return NextResponse.json({ success: true, video: operation.response?.generatedVideos });
+        return NextResponse.json({ success: true, videos: operation.response?.generatedVideos });
     } catch (err: any) {
         console.error("Video generation error:", err);
         return NextResponse.json({ error: err.message || "Failed to generate video" }, { status: 500 });

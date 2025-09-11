@@ -20,6 +20,7 @@ import {
   Command,
   LayoutDashboard,
   Lightbulb,
+  Palette,
   Share2,
 } from "lucide-react";
 import Link from "next/link";
@@ -46,10 +47,15 @@ const items = [
     icon: Briefcase,
   },
   {
-    title: "Products",
-    url: "/products",
-    icon: Box,
+    title: "Brand Kit",
+    url: "/brand-kit",
+    icon: Palette,
   },
+  // {
+  //   title: "Products",
+  //   url: "/products",
+  //   icon: Box,
+  // },
   {
     title: "Contents",
     url: "/contents",

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardAction,
@@ -31,6 +31,23 @@ interface Props {
 }
 
 const SocialChannelCard = ({ channel }: { channel: Props }) => {
+  const [isConnected, setIsConnected] = useState(channel.connected);
+  const [accountId, setAccountId] = useState(channel.accountId);
+
+  const handleConnect = async () => {
+    if (!isConnected) {
+      console.log(`Connecting to ${channel.name}...`);
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      setIsConnected(true);
+      setAccountId("@myconnectedhandle");
+    } else {
+      console.log(`Disconnecting from ${channel.name}...`);
+      setIsConnected(false);
+      setAccountId(undefined);
+    }
+  };
   return (
     <Card>
       <CardHeader>
@@ -62,8 +79,11 @@ const SocialChannelCard = ({ channel }: { channel: Props }) => {
         </div>
 
         <CardAction>
-          <Button variant={channel.connected ? "outline" : "default"}>
-            {channel.connected ? "Connected" : "Connect"}
+          <Button
+            variant={isConnected ? "outline" : "default"}
+            onClick={handleConnect}
+          >
+            {isConnected ? "Connected" : "Connect"}
           </Button>
         </CardAction>
       </CardHeader>

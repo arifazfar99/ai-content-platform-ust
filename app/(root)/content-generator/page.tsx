@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import GenerateImageForm from "@/components/generate-image-form";
@@ -5,20 +6,27 @@ import GenerateTextForm from "@/components/generate-text-form";
 import GenerateVideoForm from "@/components/generate-video-form";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { DUMMY_SKINCARE_BRANDS } from "@/lib/brands";
+import { useBrandKit } from "@/context/brand-kit-context";
 import { FileText, Film, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 
+interface GeneratedContent {
+  type: "text" | "image" | "video";
+  value: string;
+}
+
 const ContentGeneratorPage = () => {
+  const { formData } = useBrandKit();
   const [contentType, setContentType] = useState<"text" | "image" | "video">(
     "text"
   );
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [generatedContent, setGeneratedContent] = useState<any | null>(null);
+  const [selectedContents, setSelectedContents] = useState<GeneratedContent[]>(
+    []
+  );
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleGenerate = async (input: any) => {
     setLoading(true);
 
@@ -51,7 +59,7 @@ const ContentGeneratorPage = () => {
           body: JSON.stringify({
             image: input.image,
             prompt: input.prompt,
-            brand: DUMMY_SKINCARE_BRANDS[0]
+            brand: formData,
           }),
         });
 
@@ -81,6 +89,23 @@ const ContentGeneratorPage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const toggleGeneratedContent = (
+    type: "text" | "image" | "video",
+    value: string
+  ) => {
+    setSelectedContents((prev) => {
+      const exists = prev.some(
+        (item) => item.type === type && item.value === value
+      );
+      if (exists) {
+        return prev.filter(
+          (item) => !(item.type === type && item.value === value)
+        );
+      }
+      return [...prev, { type, value }];
+    });
   };
 
   return (
@@ -156,33 +181,72 @@ const ContentGeneratorPage = () => {
             Generated Content Preview
           </h2>
           {generatedContent.result && (
-            <pre className="whitespace-pre-wrap text-sm">
+            <pre
+              className={`whitespace-pre-wrap text-sm cursor-pointer p-2 rounded ${
+                selectedContents.some(
+                  (item) =>
+                    item.type === "text" &&
+                    item.value === generatedContent.result
+                )
+                  ? "bg-primary text-primary-foreground"
+                  : "hover:bg-accent"
+              }`}
+              onClick={() =>
+                toggleGeneratedContent("text", generatedContent.result!)
+              }
+            >
               {generatedContent.result}
             </pre>
           )}
 
           {generatedContent.images.length > 0 && (
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {generatedContent.images.map((src: string, idx: number) => (
-                <Image
-                  key={idx}
-                  src={src}
-                  alt={`Generated ${idx + 1}`}
-                  className="rounded-md border w-full max-w-md"
-                  width={200}
-                  height={0}
-                  unoptimized
-                />
-              ))}
+              {generatedContent.images.map((src: string, idx: number) => {
+                const isSelected = selectedContents.some(
+                  (item) => item.type === "image" && item.value === src
+                );
+                return (
+                  <div
+                    key={idx}
+                    className={`cursor-pointer rounded-md border ${
+                      isSelected ? "ring-2 ring-primary" : "hover:opacity-80"
+                    }`}
+                    onClick={() => toggleGeneratedContent("image", src)}
+                  >
+                    <Image
+                      src={src}
+                      alt={`Generated ${idx + 1}`}
+                      className="rounded-md w-full max-w-md"
+                      width={200}
+                      height={200}
+                      unoptimized
+                    />
+                  </div>
+                );
+              })}
             </div>
           )}
 
-          {generatedContent.video && (
-            <video
-              src={generatedContent.video}
-              controls
-              className="rounded-md border w-full max-w-md"
-            />
+          {generatedContent.videos.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {generatedContent.videos.map((src: any, idx: number) => {
+                const uri = src.video.uri;
+                const isSelected = selectedContents.some(
+                  (item) => item.type === "video" && item.value === uri
+                );
+                return (
+                  <div
+                    key={idx}
+                    className={`cursor-pointer rounded-md border ${
+                      isSelected ? "ring-2 ring-primary" : "hover:opacity-80"
+                    }`}
+                    onClick={() => toggleGeneratedContent("video", uri)}
+                  >
+                    <video src={uri} controls className="rounded-md w-full" />
+                  </div>
+                );
+              })}
+            </div>
           )}
         </div>
       )}
